@@ -20,10 +20,17 @@ module.exports = () => {
     },
     plugins: [
       new WorkboxPlugin.GenerateSW(),
+
       new HtmlWebpackPlugin({
         template: './index.html',
         title: 'JATE'
       }),
+      
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
+      }),
+       
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
@@ -42,10 +49,6 @@ module.exports = () => {
           },
         ],
       }),
-      new InjectManifest({
-        swSrc: './src/sw.js',
-        swDest: 'src-sw.js',
-       }),
     ],
 
     module: {

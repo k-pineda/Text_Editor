@@ -1,5 +1,5 @@
 const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
-const { CacheFirst } = require('workbox-strategies');
+const { CacheFirst, StaleWhileRevalidate } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
@@ -47,7 +47,7 @@ registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 // TODO: Implement asset caching
 // Register a route for caching assets
 registerRoute(
-  ({ request }) => {
+  ({ request }) => { 
     // Check if the request's file extension matches the allowed extensions
     const url = new URL(request.url);
     return assetFileExtensions.some(ext => url.pathname.endsWith(`.${ext}`));
